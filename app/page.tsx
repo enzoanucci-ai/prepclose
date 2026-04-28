@@ -27,12 +27,14 @@ export default function Home() {
           We automate the intelligence layer between your lead list and your sales calls.
           Every rep walks into every call with a full brief — automatically.
         </p>
-        <Link
-          href="#book"
+        <a
+          href="https://cal.com/enzo-nucci-wik89x/15min"
+          target="_blank"
+          rel="noopener noreferrer"
           className="inline-block bg-indigo-600 text-white text-base font-semibold px-8 py-4 rounded-xl hover:bg-indigo-500 transition shadow-lg"
         >
           Book a 20-min call
-        </Link>
+        </a>
       </section>
 
       {/* Problem */}
@@ -170,7 +172,9 @@ export default function Home() {
                 ))}
               </ul>
               <Link
-                href="#book"
+                href="https://cal.com/enzo-nucci-wik89x/15min"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="block text-center border border-gray-900 text-gray-900 font-semibold py-3 rounded-xl hover:bg-gray-900 hover:text-white transition"
               >
                 Get started
@@ -201,12 +205,14 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              <Link
-                href="#book"
+              <a
+                href="https://cal.com/enzo-nucci-wik89x/30min"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="block text-center bg-indigo-600 text-white font-semibold py-3 rounded-xl hover:bg-indigo-500 transition"
               >
                 Book a call
-              </Link>
+              </a>
             </div>
 
           </div>
@@ -224,7 +230,9 @@ export default function Home() {
             what can be automated — no pitch, no pressure.
           </p>
           <a
-            href="https://cal.com"
+            href="https://cal.com/enzo-nucci-wik89x/15min"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-block bg-indigo-500 text-white text-base font-semibold px-10 py-4 rounded-xl hover:bg-indigo-400 transition shadow-xl"
           >
             Book a 20-min call
