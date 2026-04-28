@@ -113,38 +113,52 @@ export default function Home() {
       </section>
 
       {/* ROI Calculator */}
-      <section className="py-20 border-t border-white/10">
-        <div className="max-w-3xl mx-auto px-8">
-          <p className="text-xs font-semibold text-gray-500 uppercase tracking-widest text-center mb-4">The math</p>
+      <section className="py-20 border-t border-white/10 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-red-500/5 rounded-full blur-[80px]" />
+        </div>
+        <div className="relative max-w-3xl mx-auto px-8">
+          <p className="text-xs font-semibold text-red-400/80 uppercase tracking-widest text-center mb-4">The math</p>
           <h2 className="text-3xl font-bold mb-4 text-center">What it actually costs you not to use this</h2>
           <p className="text-gray-400 text-center mb-14 max-w-xl mx-auto">
             A team of 5 reps doing 4 calls a day. Each call needs 30 min of research.
           </p>
           <div className="bg-white/5 border border-white/10 rounded-2xl p-8">
-            <div className="grid grid-cols-2 gap-px bg-white/10 rounded-xl overflow-hidden mb-8">
+            <div className="rounded-xl overflow-hidden mb-8 border border-white/10">
               {[
-                { label: "Reps on your team", value: "5" },
-                { label: "Calls per rep per day", value: "4" },
-                { label: "Manual research per call", value: "30 min" },
-                { label: "Total research time daily", value: "10 hours" },
-                { label: "Cost of rep time per hour", value: "$50" },
-                { label: "Productivity lost per day", value: "$500" },
-              ].map((item) => (
-                <div key={item.label} className="bg-[#0a0a0f] px-6 py-4 flex justify-between items-center">
+                { label: "Reps on your team", value: "5", highlight: false },
+                { label: "Calls per rep per day", value: "4", highlight: false },
+                { label: "Manual research per call", value: "30 min", highlight: false },
+                { label: "Total research time daily", value: "10 hours", highlight: true },
+                { label: "Cost of rep time per hour", value: "$50", highlight: false },
+                { label: "Productivity lost per day", value: "$500", highlight: true },
+              ].map((item, i) => (
+                <div key={item.label} className={`px-6 py-4 flex justify-between items-center ${i !== 5 ? "border-b border-white/5" : ""} ${item.highlight ? "bg-red-500/5" : "bg-[#0a0a0f]"}`}>
                   <span className="text-gray-400 text-sm">{item.label}</span>
-                  <span className="text-white font-semibold">{item.value}</span>
+                  <span className={`font-bold text-base ${item.highlight ? "text-red-400" : "text-white"}`}>{item.value}</span>
                 </div>
               ))}
             </div>
-            <div className="flex items-center justify-between p-5 rounded-xl bg-indigo-500/10 border border-indigo-500/20">
-              <div>
-                <p className="text-white font-bold text-lg">Prepclose costs you $20/day.</p>
-                <p className="text-gray-400 text-sm mt-1">You're losing $500/day without it.</p>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="p-5 rounded-xl bg-red-500/10 border border-red-500/20 text-center">
+                <p className="text-red-400 text-3xl font-extrabold mb-1">$500</p>
+                <p className="text-gray-400 text-sm">lost every single day</p>
               </div>
-              <div className="text-right">
-                <p className="text-3xl font-extrabold bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">25x</p>
-                <p className="text-gray-500 text-xs mt-1">return on day one</p>
+              <div className="p-5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-center">
+                <p className="text-3xl font-extrabold bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent mb-1">$20</p>
+                <p className="text-gray-400 text-sm">what Prepclose costs per day</p>
               </div>
+            </div>
+            <div className="mt-4 p-5 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between">
+              <p className="text-white font-semibold">That's a <span className="text-green-400 font-extrabold">25x return</span> on day one.</p>
+              <a
+                href="https://cal.com/enzo-nucci-wik89x/15min"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-semibold bg-white text-black px-4 py-2 rounded-lg hover:bg-gray-100 transition shrink-0"
+              >
+                Fix it now
+              </a>
             </div>
           </div>
         </div>
