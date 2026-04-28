@@ -155,7 +155,7 @@ export default function Home() {
             <div className="rounded-2xl border border-gray-200 p-8">
               <p className="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-2">Sales Intelligence</p>
               <p className="text-4xl font-extrabold mb-1">
-                $900<span className="text-lg font-medium text-gray-400">/mo</span>
+                $600<span className="text-lg font-medium text-gray-400">/mo</span>
               </p>
               <p className="text-gray-500 text-sm mb-8">Best for early-stage teams and founder-led sales</p>
               <ul className="space-y-3 text-sm text-gray-600 mb-10">
@@ -188,9 +188,9 @@ export default function Home() {
               </span>
               <p className="text-sm font-semibold text-indigo-400 uppercase tracking-widest mb-2">Revenue Intelligence</p>
               <p className="text-4xl font-extrabold mb-1">
-                $5,000<span className="text-lg font-medium text-gray-400"> build</span>
+                $4,000<span className="text-lg font-medium text-gray-400"> build</span>
               </p>
-              <p className="text-gray-500 text-sm mb-8">+ $1,500/mo — Best for Series A teams with RevOps</p>
+              <p className="text-gray-500 text-sm mb-8">+ $1,800/mo — Best for Series A teams with RevOps</p>
               <ul className="space-y-3 text-sm text-gray-600 mb-10">
                 {[
                   "Everything in Sales Intelligence",
