@@ -298,11 +298,11 @@ export default function Home() {
               <ul className="space-y-3 text-sm text-gray-400 mb-10">
                 {[
                   "Everything in Starter",
-                  "Competitor monitoring — weekly digest",
-                  "Cold outreach personalization layer",
-                  "Full CRM sync — HubSpot or Salesforce",
-                  "Lead scoring + inbound routing",
-                  "Dedicated Slack channel for support",
+                  "Competitor monitoring — weekly digest on all key rivals",
+                  "Outreach hooks — one personalized opener drafted per prospect",
+                  "CRM enrichment — data pushed to HubSpot or Salesforce",
+                  "Monthly strategy call — we review and tune your automations",
+                  "Dedicated Slack channel — direct line, no tickets",
                 ].map((f) => (
                   <li key={f} className="flex items-start gap-2">
                     <span className="text-indigo-400 mt-0.5 shrink-0">✓</span> {f}
