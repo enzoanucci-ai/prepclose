@@ -262,6 +262,7 @@ export default function Home() {
               <p className="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-3">Starter</p>
               <p className="text-5xl font-extrabold mb-1">$1,500<span className="text-xl font-medium text-gray-500"> build</span></p>
               <p className="text-gray-400 text-sm mb-1">+ $600/mo — 500 credits/month</p>
+              <p className="text-indigo-400/70 text-xs mb-1">$1.20 per brief</p>
               <p className="text-gray-500 text-sm mb-8">Best for teams running 20–25 calls per week</p>
               <ul className="space-y-3 text-sm text-gray-400 mb-10">
                 {[
@@ -294,6 +295,7 @@ export default function Home() {
               <p className="text-xs font-semibold text-indigo-400 uppercase tracking-widest mb-3">Growth</p>
               <p className="text-5xl font-extrabold mb-1">$4,000<span className="text-xl font-medium text-gray-500"> build</span></p>
               <p className="text-indigo-400 text-sm mb-1">+ $1,800/mo — 2,000 credits/month</p>
+              <p className="text-indigo-400/70 text-xs mb-1">$0.90 per brief — 25% cheaper than Starter</p>
               <p className="text-gray-400 text-sm mb-8">Best for Series A teams running a full sales motion</p>
               <ul className="space-y-3 text-sm text-gray-400 mb-10">
                 {[
@@ -301,7 +303,6 @@ export default function Home() {
                   "Competitor monitoring — weekly digest on all key rivals",
                   "Outreach hooks — one personalized opener drafted per prospect",
                   "CRM enrichment — data pushed to HubSpot or Salesforce",
-                  "Monthly strategy call — we review and tune your automations",
                   "Dedicated Slack channel — direct line, no tickets",
                 ].map((f) => (
                   <li key={f} className="flex items-start gap-2">
