@@ -126,43 +126,57 @@ export default function Home() {
           <p className="text-gray-400 text-center mb-14 max-w-xl mx-auto">
             A team of 5 reps doing 4 calls a day. Each call needs 30 min of research.
           </p>
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-8">
-            <div className="rounded-xl overflow-hidden mb-8 border border-white/10">
-              {[
-                { label: "Reps on your team", value: "5", highlight: false },
-                { label: "Calls per rep per day", value: "4", highlight: false },
-                { label: "Manual research per call", value: "30 min", highlight: false },
-                { label: "Total research time daily", value: "10 hours", highlight: true },
-                { label: "Cost of rep time per hour", value: "$50", highlight: false },
-                { label: "Productivity lost per day", value: "$500", highlight: true },
-              ].map((item, i) => (
-                <div key={item.label} className={`px-6 py-4 flex justify-between items-center ${i !== 5 ? "border-b border-white/5" : ""} ${item.highlight ? "bg-red-500/5" : "bg-[#0a0a0f]"}`}>
-                  <span className="text-gray-400 text-sm">{item.label}</span>
-                  <span className={`font-bold text-base ${item.highlight ? "text-red-400" : "text-white"}`}>{item.value}</span>
+
+          {/* Equation row */}
+          <div className="flex items-center justify-center gap-2 flex-wrap mb-10">
+            {([
+              { value: "5", label: "reps" },
+              { op: "×" },
+              { value: "4", label: "calls/day" },
+              { op: "×" },
+              { value: "30 min", label: "per call" },
+              { op: "=" },
+              { value: "10 hrs", label: "wasted daily", red: true },
+              { op: "×" },
+              { value: "$50/hr", label: "rep cost" },
+              { op: "=" },
+              { value: "$500", label: "lost per day", red: true },
+            ] as Array<{ value?: string; label?: string; op?: string; red?: boolean }>).map((item, i) =>
+              item.op ? (
+                <span key={i} className="text-gray-600 text-lg font-bold px-1">{item.op}</span>
+              ) : (
+                <div key={i} className={`text-center px-4 py-3 rounded-xl border ${item.red ? "bg-red-500/10 border-red-500/20" : "bg-white/5 border-white/10"}`}>
+                  <p className={`text-xl font-extrabold ${item.red ? "text-red-400" : "text-white"}`}>{item.value}</p>
+                  <p className="text-gray-500 text-xs mt-0.5">{item.label}</p>
                 </div>
-              ))}
+              )
+            )}
+          </div>
+
+          {/* Comparison */}
+          <div className="grid grid-cols-2 gap-4 mb-4">
+            <div className="p-8 rounded-2xl bg-red-500/10 border border-red-500/20 text-center">
+              <p className="text-gray-500 text-xs uppercase tracking-widest mb-3">You're losing</p>
+              <p className="text-red-400 text-5xl font-extrabold mb-1">$500</p>
+              <p className="text-gray-500 text-sm">every single day</p>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="p-5 rounded-xl bg-red-500/10 border border-red-500/20 text-center">
-                <p className="text-red-400 text-3xl font-extrabold mb-1">$500</p>
-                <p className="text-gray-400 text-sm">lost every single day</p>
-              </div>
-              <div className="p-5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-center">
-                <p className="text-3xl font-extrabold bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent mb-1">$20</p>
-                <p className="text-gray-400 text-sm">what Prepclose costs per day</p>
-              </div>
+            <div className="p-8 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-center">
+              <p className="text-gray-500 text-xs uppercase tracking-widest mb-3">Prepclose costs</p>
+              <p className="text-5xl font-extrabold bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent mb-1">$20</p>
+              <p className="text-gray-500 text-sm">per day</p>
             </div>
-            <div className="mt-4 p-5 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between">
-              <p className="text-white font-semibold">That's a <span className="text-green-400 font-extrabold">25x return</span> on day one.</p>
-              <a
-                href="https://cal.com/enzo-nucci-wik89x/15min"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm font-semibold bg-white text-black px-4 py-2 rounded-lg hover:bg-gray-100 transition shrink-0"
-              >
-                Fix it now
-              </a>
-            </div>
+          </div>
+
+          <div className="p-5 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between">
+            <p className="text-white font-semibold">That's a <span className="text-green-400 font-extrabold">25x return</span> on day one.</p>
+            <a
+              href="https://cal.com/enzo-nucci-wik89x/15min"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-semibold bg-white text-black px-4 py-2 rounded-lg hover:bg-gray-100 transition shrink-0"
+            >
+              Fix it now
+            </a>
           </div>
         </div>
       </section>
