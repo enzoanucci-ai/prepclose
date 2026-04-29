@@ -56,21 +56,24 @@ export default function Home() {
           <div className="mt-16 max-w-lg mx-auto bg-white/5 border border-white/10 rounded-2xl p-6 text-left backdrop-blur-sm">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-green-400" />
-                <span className="text-xs text-gray-400 font-medium">Pre-call brief — generated 4 min ago</span>
+                <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                <span className="text-xs text-gray-400 font-medium">Pre-call brief — generated 2 min ago</span>
               </div>
-              <span className="text-xs text-indigo-400 font-medium">Acme Corp</span>
+              <span className="text-xs text-indigo-400 font-medium">Horizon Labs</span>
             </div>
             <div className="space-y-3">
               {[
-                { label: "Company", value: "Acme Corp — B2B SaaS, Series B, 120 employees" },
-                { label: "Funding", value: "$18M raised — last round 8 months ago" },
-                { label: "Hiring signals", value: "3 open SDR roles, VP of RevOps posted last week" },
-                { label: "Recent news", value: "Just launched new enterprise tier, expanding to EMEA" },
-                { label: "Pain point", value: "Using spreadsheets for lead tracking, no CRM hygiene" },
+                { label: "Company", value: "Horizon Labs — B2B SaaS, Series B, 85 employees. Sells revenue intelligence software to mid-market sales teams." },
+                { label: "Funding", value: "$24M raised. Last round 6 months ago. Likely in growth mode — budget should be available." },
+                { label: "Tech stack", value: "Salesforce CRM, Outreach for sequences, Gong for call recording. No enrichment tool detected." },
+                { label: "Hiring signals", value: "4 open AE roles, 2 SDR roles posted this month. Sales team is scaling fast." },
+                { label: "Recent news", value: "Launched new enterprise tier 3 weeks ago. CEO quoted in TechCrunch on pipeline visibility challenges." },
+                { label: "Contact", value: "Sarah Chen, VP of Sales. Previously at Outreach for 3 years. Promoted internally 4 months ago." },
+                { label: "Pain point", value: "Growing headcount fast but reps are inconsistent. Likely struggling with onboarding new AEs to process." },
+                { label: "Open with", value: "\"Saw you're scaling the team — how are your new AEs getting up to speed on accounts before their first calls?\"" },
               ].map((item) => (
                 <div key={item.label} className="flex gap-3 text-sm">
-                  <span className="text-gray-500 w-28 shrink-0">{item.label}</span>
+                  <span className="text-gray-500 w-24 shrink-0">{item.label}</span>
                   <span className="text-gray-200">{item.value}</span>
                 </div>
               ))}
@@ -247,24 +250,26 @@ export default function Home() {
       <section className="py-20 border-t border-white/10" id="pricing">
         <div className="max-w-4xl mx-auto px-8">
           <p className="text-xs font-semibold text-gray-500 uppercase tracking-widest text-center mb-4">Pricing</p>
-          <h2 className="text-3xl font-bold mb-4 text-center">Two ways to work together</h2>
-          <p className="text-gray-400 text-center mb-14 max-w-xl mx-auto">
-            Same automation stack. Different scope.
+          <h2 className="text-3xl font-bold mb-4 text-center">Pay for briefs, not headcount</h2>
+          <p className="text-gray-400 text-center mb-3 max-w-xl mx-auto">
+            Each credit = one automated brief. Pre-call research, lead enrichment, delivered to Slack or email.
           </p>
+          <p className="text-gray-500 text-xs text-center mb-14">Unused credits roll over. No per-seat fees. Cancel anytime.</p>
           <div className="grid md:grid-cols-2 gap-8">
 
             {/* Tier 1 */}
             <div className="rounded-2xl border border-white/10 p-8 hover:border-white/20 transition">
               <p className="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-3">Starter</p>
               <p className="text-5xl font-extrabold mb-1">$600<span className="text-xl font-medium text-gray-500">/mo</span></p>
-              <p className="text-gray-500 text-sm mb-8">Best for early-stage teams and founder-led sales</p>
+              <p className="text-indigo-400 font-semibold text-sm mb-1">500 credits/month</p>
+              <p className="text-gray-500 text-sm mb-8">Best for teams running 20–25 calls per week</p>
               <ul className="space-y-3 text-sm text-gray-400 mb-10">
                 {[
-                  "Pre-call brief for every new lead",
-                  "Lead enrichment — company, funding, hiring signals, news",
-                  "Delivered to Slack or email",
+                  "1 credit = 1 full pre-call brief",
+                  "Company intel, funding, hiring signals, tech stack",
+                  "Delivered to Slack or email before the call",
                   "Onboarding + setup included",
-                  "Monthly workflow review",
+                  "Credits roll over month to month",
                 ].map((f) => (
                   <li key={f} className="flex items-start gap-2">
                     <span className="text-indigo-400 mt-0.5 shrink-0">✓</span> {f}
@@ -287,8 +292,9 @@ export default function Home() {
                 Most popular
               </span>
               <p className="text-xs font-semibold text-indigo-400 uppercase tracking-widest mb-3">Growth</p>
-              <p className="text-5xl font-extrabold mb-1">$4,000<span className="text-xl font-medium text-gray-500"> build</span></p>
-              <p className="text-gray-400 text-sm mb-8">+ $1,800/mo — Best for Series A teams with RevOps</p>
+              <p className="text-5xl font-extrabold mb-1">$1,800<span className="text-xl font-medium text-gray-500">/mo</span></p>
+              <p className="text-indigo-400 font-semibold text-sm mb-1">2,000 credits/month</p>
+              <p className="text-gray-400 text-sm mb-8">Best for Series A teams running a full sales motion</p>
               <ul className="space-y-3 text-sm text-gray-400 mb-10">
                 {[
                   "Everything in Starter",
