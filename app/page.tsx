@@ -127,57 +127,44 @@ export default function Home() {
             A team of 5 reps doing 4 calls a day. Each call needs 30 min of research.
           </p>
 
-          {/* Equation row */}
-          <div className="flex items-center justify-center gap-2 flex-wrap mb-10">
-            {([
-              { value: "5", label: "reps" },
-              { op: "×" },
-              { value: "4", label: "calls/day" },
-              { op: "×" },
-              { value: "30 min", label: "per call" },
-              { op: "=" },
-              { value: "10 hrs", label: "wasted daily", red: true },
-              { op: "×" },
-              { value: "$50/hr", label: "rep cost" },
-              { op: "=" },
-              { value: "$500", label: "lost per day", red: true },
-            ] as Array<{ value?: string; label?: string; op?: string; red?: boolean }>).map((item, i) =>
-              item.op ? (
-                <span key={i} className="text-gray-600 text-lg font-bold px-1">{item.op}</span>
-              ) : (
-                <div key={i} className={`text-center px-4 py-3 rounded-xl border ${item.red ? "bg-red-500/10 border-red-500/20" : "bg-white/5 border-white/10"}`}>
-                  <p className={`text-xl font-extrabold ${item.red ? "text-red-400" : "text-white"}`}>{item.value}</p>
-                  <p className="text-gray-500 text-xs mt-0.5">{item.label}</p>
-                </div>
-              )
-            )}
+          {/* Inputs */}
+          <div className="grid grid-cols-3 gap-3 mb-6">
+            {[
+              { value: "5", label: "reps on your team" },
+              { value: "4", label: "calls per rep per day" },
+              { value: "30 min", label: "research per call" },
+            ].map((item) => (
+              <div key={item.label} className="text-center p-5 rounded-2xl bg-white/5 border border-white/10">
+                <p className="text-3xl font-extrabold text-white mb-1">{item.value}</p>
+                <p className="text-gray-500 text-xs leading-snug">{item.label}</p>
+              </div>
+            ))}
           </div>
 
-          {/* Comparison */}
-          <div className="grid grid-cols-2 gap-4 mb-4">
-            <div className="p-8 rounded-2xl bg-red-500/10 border border-red-500/20 text-center">
-              <p className="text-gray-500 text-xs uppercase tracking-widest mb-3">You're losing</p>
-              <p className="text-red-400 text-5xl font-extrabold mb-1">$500</p>
-              <p className="text-gray-500 text-sm">every single day</p>
-            </div>
-            <div className="p-8 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-center">
-              <p className="text-gray-500 text-xs uppercase tracking-widest mb-3">Prepclose costs</p>
-              <p className="text-5xl font-extrabold bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent mb-1">$20</p>
-              <p className="text-gray-500 text-sm">per day</p>
-            </div>
+          {/* Result */}
+          <div className="text-center p-8 rounded-2xl bg-red-500/10 border border-red-500/20 mb-4">
+            <p className="text-gray-500 text-xs uppercase tracking-widest mb-3">That's</p>
+            <p className="text-red-400 text-6xl font-extrabold mb-2">$500</p>
+            <p className="text-gray-400 text-sm">in rep time lost to research every single day</p>
           </div>
 
-          <div className="p-5 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between">
-            <p className="text-white font-semibold">That's a <span className="text-green-400 font-extrabold">25x return</span> on day one.</p>
-            <a
-              href="https://cal.com/enzo-nucci-wik89x/15min"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm font-semibold bg-white text-black px-4 py-2 rounded-lg hover:bg-gray-100 transition shrink-0"
-            >
-              Fix it now
-            </a>
+          {/* Comparison + CTA */}
+          <div className="p-5 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-between mb-4">
+            <div>
+              <p className="text-gray-500 text-xs uppercase tracking-widest mb-1">Prepclose costs</p>
+              <p className="text-3xl font-extrabold bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">$20 per day</p>
+            </div>
+            <p className="text-white font-semibold text-right">That's a <span className="text-green-400 font-extrabold">25x return</span><br />on day one.</p>
           </div>
+
+          <a
+            href="https://cal.com/enzo-nucci-wik89x/15min"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block text-center text-sm font-semibold bg-white text-black px-4 py-3 rounded-xl hover:bg-gray-100 transition"
+          >
+            Fix it now
+          </a>
         </div>
       </section>
 
