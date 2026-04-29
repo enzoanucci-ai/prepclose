@@ -260,8 +260,8 @@ export default function Home() {
             {/* Tier 1 */}
             <div className="rounded-2xl border border-white/10 p-8 hover:border-white/20 transition">
               <p className="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-3">Starter</p>
-              <p className="text-5xl font-extrabold mb-1">$600<span className="text-xl font-medium text-gray-500">/mo</span></p>
-              <p className="text-indigo-400 font-semibold text-sm mb-1">500 credits/month</p>
+              <p className="text-5xl font-extrabold mb-1">$1,500<span className="text-xl font-medium text-gray-500"> build</span></p>
+              <p className="text-gray-400 text-sm mb-1">+ $600/mo — 500 credits/month</p>
               <p className="text-gray-500 text-sm mb-8">Best for teams running 20–25 calls per week</p>
               <ul className="space-y-3 text-sm text-gray-400 mb-10">
                 {[
@@ -292,8 +292,8 @@ export default function Home() {
                 Most popular
               </span>
               <p className="text-xs font-semibold text-indigo-400 uppercase tracking-widest mb-3">Growth</p>
-              <p className="text-5xl font-extrabold mb-1">$1,800<span className="text-xl font-medium text-gray-500">/mo</span></p>
-              <p className="text-indigo-400 font-semibold text-sm mb-1">2,000 credits/month</p>
+              <p className="text-5xl font-extrabold mb-1">$4,000<span className="text-xl font-medium text-gray-500"> build</span></p>
+              <p className="text-indigo-400 text-sm mb-1">+ $1,800/mo — 2,000 credits/month</p>
               <p className="text-gray-400 text-sm mb-8">Best for Series A teams running a full sales motion</p>
               <ul className="space-y-3 text-sm text-gray-400 mb-10">
                 {[
