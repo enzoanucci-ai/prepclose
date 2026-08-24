@@ -13,8 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Prepclose — Sales Intelligence, Automated",
-  description: "We automate the intelligence layer between your lead list and your sales calls. Every rep walks into every call with a full brief — automatically.",
+  title: "Prepclose — AI-Generated Amazon Reinstatement Appeals",
+  description:
+    "Your Amazon seller account got suspended. Get a strong, Amazon-policy-aware Plan of Action in minutes, not a $2,000 consultant fee.",
 };
 
 export default function RootLayout({
