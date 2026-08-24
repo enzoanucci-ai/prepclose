@@ -1,27 +1,10 @@
 import Anthropic from "@anthropic-ai/sdk";
+import Stripe from "stripe";
 import { NextRequest, NextResponse } from "next/server";
 import { SUSPENSION_CATEGORIES } from "@/lib/suspensionPatterns";
+import { getSubmission } from "@/lib/submissionStore";
 
 const client = new Anthropic();
-
-// Simple in-memory rate limit to guard against abuse of a public, unauthenticated
-// endpoint. Not durable across serverless instances/restarts — fine for early
-// low-traffic validation, revisit before real volume.
-const RATE_LIMIT = 5;
-const RATE_WINDOW_MS = 60 * 60 * 1000;
-const requestLog = new Map<string, number[]>();
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const timestamps = (requestLog.get(ip) ?? []).filter((t) => now - t < RATE_WINDOW_MS);
-  if (timestamps.length >= RATE_LIMIT) {
-    requestLog.set(ip, timestamps);
-    return true;
-  }
-  timestamps.push(now);
-  requestLog.set(ip, timestamps);
-  return false;
-}
 
 const REFERENCE_LIBRARY = SUSPENSION_CATEGORIES.map((c) => {
   return `### ${c.label}
@@ -40,13 +23,30 @@ Amazon's Seller Performance team expects a POA with exactly three sections, in t
 
 Write in first person as the seller, professional and concise, no filler, no apologetic tone beyond a brief acknowledgment. Amazon rejects vague POAs ("we will do better") — every action must be specific and verifiable.
 
-Use the seller's actual situation as described in their message. Use the reference library below only to recognize the likely suspension category and match the tone/specificity of what works — do not copy it verbatim, adapt it to the seller's real facts. If the seller's situation doesn't clearly match a category, write a general but still specific POA based on what they described.
+Use the seller's actual situation as described in their message, including any screenshot of the suspension notice they attached — read it carefully for the exact policy cited and any ASIN/order numbers. Use the reference library below only to recognize the likely suspension category and match the tone/specificity of what works — do not copy it verbatim, adapt it to the seller's real facts. If the seller's situation doesn't clearly match a category, write a general but still specific POA based on what they described.
 
 Reference library of suspension categories:
 
 ${REFERENCE_LIBRARY}
 
 Output the POA as plain text with the three headers "Root Cause", "Corrective Actions", and "Preventive Actions", each followed by 2-4 sentences or a short bulleted list. Do not add a greeting, sign-off, or any text outside the three sections.`;
+
+// Simple in-memory rate limit as a second layer of defense against abuse.
+const RATE_LIMIT = 5;
+const RATE_WINDOW_MS = 60 * 60 * 1000;
+const requestLog = new Map<string, number[]>();
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const timestamps = (requestLog.get(ip) ?? []).filter((t) => now - t < RATE_WINDOW_MS);
+  if (timestamps.length >= RATE_LIMIT) {
+    requestLog.set(ip, timestamps);
+    return true;
+  }
+  timestamps.push(now);
+  requestLog.set(ip, timestamps);
+  return false;
+}
 
 export async function POST(req: NextRequest) {
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
@@ -57,24 +57,50 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  let body: { suspensionNotice?: string; accountDetails?: string };
+  let body: { sessionId?: string };
   try {
     body = await req.json();
   } catch {
     return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
   }
 
-  const suspensionNotice = body.suspensionNotice?.trim();
-  const accountDetails = body.accountDetails?.trim() ?? "";
+  const sessionId = body.sessionId?.trim();
+  if (!sessionId) {
+    return NextResponse.json({ error: "Missing checkout session." }, { status: 400 });
+  }
+  if (!process.env.STRIPE_SECRET_KEY) {
+    return NextResponse.json({ error: "Payments aren't set up yet on the server." }, { status: 500 });
+  }
 
-  if (!suspensionNotice || suspensionNotice.length < 20) {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+  let session: Stripe.Checkout.Session;
+  try {
+    session = await stripe.checkout.sessions.retrieve(sessionId);
+  } catch {
+    return NextResponse.json({ error: "Couldn't verify payment for this session." }, { status: 400 });
+  }
+
+  if (session.payment_status !== "paid") {
+    return NextResponse.json({ error: "Payment not completed for this session." }, { status: 402 });
+  }
+
+  const submissionId = session.metadata?.submissionId;
+  const submission = submissionId ? getSubmission(submissionId) : undefined;
+  if (!submission) {
     return NextResponse.json(
-      { error: "Paste the suspension notice you received from Amazon (at least a few sentences)." },
-      { status: 400 },
+      { error: "We couldn't find your submission — it may have expired. Contact enzo@prepclose.com." },
+      { status: 404 },
     );
   }
 
-  const userMessage = `Suspension notice from Amazon:
+  const { suspensionNotice, accountDetails, name } = submission;
+
+  const userContent: Anthropic.MessageParam["content"] = [
+    {
+      type: "text",
+      text: `Seller name: ${name || "(not provided)"}
+
+Suspension notice from Amazon:
 """
 ${suspensionNotice}
 """
@@ -84,7 +110,20 @@ Additional context from the seller about their account/situation:
 ${accountDetails || "(none provided)"}
 """
 
-Write the Plan of Action.`;
+Write the Plan of Action.`,
+    },
+  ];
+
+  if (submission.screenshotBase64 && submission.screenshotMediaType) {
+    userContent.unshift({
+      type: "image",
+      source: {
+        type: "base64",
+        media_type: submission.screenshotMediaType as "image/png" | "image/jpeg" | "image/webp",
+        data: submission.screenshotBase64,
+      },
+    });
+  }
 
   try {
     const response = await client.messages.create({
@@ -93,7 +132,7 @@ Write the Plan of Action.`;
       thinking: { type: "adaptive" },
       output_config: { effort: "medium" },
       system: [{ type: "text", text: SYSTEM_PROMPT, cache_control: { type: "ephemeral" } }],
-      messages: [{ role: "user", content: userMessage }],
+      messages: [{ role: "user", content: userContent }],
     });
 
     const textBlock = response.content.find((b) => b.type === "text");
