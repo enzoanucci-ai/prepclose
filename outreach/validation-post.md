@@ -1,11 +1,5 @@
-Amazon suspended you. Your money is stuck. You need a POA.
+My Amazon account got suspended and my money got stuck, so I looked into getting a Plan of Action written. Lawyers wanted $2,000 to $5,000. Other agencies were around $1,700 to $2,500. I couldn't justify that, so I built a tool that writes it for you instead — paste your suspension notice, no call needed, price is upfront, and you get a ready-to-submit draft back in minutes instead of days. I charge $699.
 
-Lawyers charge $2,000 to $5,000 for this.
-Other companies charge $1,700 to $2,500.
-I charge $699.
+prepclose.com/appeal
 
-Price is upfront. No call needed. No sales pitch.
-
-Paste your suspension notice. Get a ready-to-submit draft in minutes, not days.
-
-Done in minutes. Ready to send. You're back in business.
+Would love feedback, especially if you've been through this.
